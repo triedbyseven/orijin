@@ -1,1 +1,0 @@
-{"ast":null,"code":"export { default as Table } from './Table';","map":{"version":3,"sources":["/Applications/MAMP/htdocs/Development/Nextjs/landing-page-prodcut-001/components/Table/index.ts"],"names":["default","Table"],"mappings":"AAAA,SAASA,OAAO,IAAIC,KAApB,QAAiC,SAAjC","sourcesContent":["export { default as Table } from './Table';\n"]},"metadata":{},"sourceType":"module"}
