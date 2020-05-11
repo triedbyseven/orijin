@@ -12,7 +12,7 @@ const Setup: React.FC = () => {
     }
   });
 
-  const runFullSetup = (success: boolean) => {
+  const startSetup = (success: boolean) => {
     runSetup({ variables: { success } });
   };
 
@@ -35,7 +35,7 @@ const Setup: React.FC = () => {
       <button
         type="button"
         className="btn btn-primary"
-        onClick={() => runFullSetup(true)}
+        onClick={() => startSetup(true)}
       >
         Run SetUp
       </button>
