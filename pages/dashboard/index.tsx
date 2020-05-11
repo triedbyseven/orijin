@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { checkSetup } from '../../utils/checkSetup';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_GLOBAL_CONFIG } from '../../graphql';
 import ToastContainer from '../../components/ToastContainer';
@@ -60,5 +61,12 @@ const Dashboard: React.FC = () => {
     </>
   );
 };
+
+export async function getServerSideProps(context) {
+  await checkSetup(context);
+
+  return { props: {} };
+}
+
 
 export default Dashboard;

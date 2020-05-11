@@ -2,7 +2,7 @@ import { useRouter } from 'next/router';
 import { useState, useEffect } from 'react';
 import { useQuery } from '@apollo/react-hooks';
 import { QUERY_GLOBAL_CONFIG } from '../graphql';
-
+import { checkSetup } from '../utils/checkSetup';
 import { subtractCount } from '../utils/counter';
 import { PayPalButton } from 'react-paypal-button-v2';
 
@@ -241,5 +241,11 @@ const HomePage = () => {
     </div>
   );
 };
+
+export async function getServerSideProps(context) {
+  await checkSetup(context);
+
+  return { props: {} };
+}
 
 export default HomePage;
