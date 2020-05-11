@@ -1,19 +1,11 @@
 import React from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
-import gql from 'graphql-tag';
-
-const RUN_SETUP = gql`
-  mutation runSetup($success: Boolean) {
-    runSetup(success: $success) {
-      success
-    }
-  }
-`;
+import { MUTATION_SETUP } from '../graphql';
 
 const Setup: React.FC = () => {
   const router = useRouter();
-  const [runSetup, { loading: runSetupLoading }]: any = useMutation(RUN_SETUP, {
+  const [runSetup, { loading: runSetupLoading }]: any = useMutation(MUTATION_SETUP, {
     onCompleted: () => {
       alert('Okay your ready to rock!');
       router.push('/');
