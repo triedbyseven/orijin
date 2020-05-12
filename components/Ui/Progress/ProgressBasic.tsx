@@ -24,8 +24,8 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = () => {
             text-align: center;
             background-color: #eef4fe;
             border-radius: 22px;
-            webkit-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
-            -moz-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
+            webkit-box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
+            -moz-box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
             box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
           }
           .progessbar-container .active {

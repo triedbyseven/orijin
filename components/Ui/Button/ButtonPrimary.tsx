@@ -30,6 +30,7 @@ const Button: React.SFC<ButtonProps> = ({
           font-size: 16px;
           font-weight: 700;
           color: #111b60;
+          padding: ${maxWidth ? '0 0' : '0 2.25rem'};
           background-color: #eef4fe;
           border-radius: 16px;
           border: 1px transparent;
