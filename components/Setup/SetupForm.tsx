@@ -1,28 +1,32 @@
-import { FormGroup, InputText } from '../Ui/Form/index';
+import { useState } from 'react';
+import { SetupStep1, SetupStep2 } from './';
+
+export interface SetUpformState {
+  initialStep: any;
+  steps: any;
+}
 
 export interface SetUpformProps {
 }
 
 const SetUpform: React.SFC<SetUpformProps> = () => {
+  const steps = [{ id: 0, index: 0, step: () => <SetupStep1 /> }, { id: 1, index: 1, step: () => <SetupStep2 /> }];
+
+  const [state, updateState] = useState<SetUpformState>({
+    initialStep: steps[0],
+    steps: steps
+  });
+
+  const nextStep = () => {
+    const newIndex = state.initialStep.index + 1;
+
+    updateState(prevState => ({ initialStep: newIndex, ...prevState }))
+  }
+
   return (
     <form>
       <p>We just need a little information to get you started...</p>
-      <div className="form-row mb-4">
-        <FormGroup>
-          <InputText
-            labelTitle="First Name"
-            name="firstName"
-            placeholderTitle=""
-            onChange={() => console.log('onChange')} />
-        </FormGroup>
-        <FormGroup>
-          <InputText
-            labelTitle="Last Name"
-            name="lastName"
-            placeholderTitle=""
-            onChange={() => console.log('onChange')} />
-        </FormGroup>
-      </div>
+      {state.initialStep.step()}
       <style jsx>
         {`
           p {
