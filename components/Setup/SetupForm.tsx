@@ -37,20 +37,23 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       <form>
         <p>We just need a little information to get you started...</p>
         {state.currentStep.step()}
-        <style jsx>
-          {`
+      </form>
+      <ButtonSecondary
+        mutationLoading={false}
+        float="right"
+        onClick={() => nextStep()}>Next</ButtonSecondary>
+      <style jsx>
+        {`
+          form {
+            min-height: 266px;
+          }
           p {
               font-family: 'Montserrat';
               font-weight: 500;
               margin-bottom: 40px;
           }
         `}
-        </style>
-      </form>
-      <ButtonSecondary
-        mutationLoading={false}
-        float="right"
-        onClick={() => nextStep()}>Next</ButtonSecondary>
+      </style>
     </>
   );
 }
