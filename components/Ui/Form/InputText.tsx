@@ -1,18 +1,19 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 
 export interface InputPriceProps {
   onChange: any;
   labelTitle: string;
   name: string;
   placeholderTitle: string;
+  ref?: any;
 }
 
-const InputPrice: React.SFC<InputPriceProps> = ({
+const InputPrice: React.SFC<InputPriceProps> = forwardRef(({
   onChange,
   labelTitle,
   name,
   placeholderTitle,
-}) => {
+}, ref: any) => {
   return (
     <>
       <label className="sr-only" htmlFor={`input${labelTitle}`}>
@@ -25,6 +26,7 @@ const InputPrice: React.SFC<InputPriceProps> = ({
       </div>
       <div className="input-group mb-2">
         <input
+          ref={ref}
           type="text"
           className="form-control"
           id={`input${labelTitle}`}
@@ -68,6 +70,6 @@ const InputPrice: React.SFC<InputPriceProps> = ({
         `}</style>
     </>
   );
-};
+});
 
 export default InputPrice;

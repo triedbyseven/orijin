@@ -4,7 +4,6 @@ import { useMutation } from '@apollo/react-hooks';
 import { MUTATION_SETUP } from '../graphql';
 import { SetUpForm } from '../components/Setup';
 import { ProgressBasic } from '../components/Ui/Progress';
-import { ButtonSecondary } from '../components/Ui/Button';
 import FadeIn from '../components/Ui/Animation/FadeIn';
 
 const Setup: React.FC = () => {
@@ -34,10 +33,6 @@ const Setup: React.FC = () => {
               <ProgressBasic />
               <h1>Welcome to Orijin.</h1>
               <SetUpForm />
-              <ButtonSecondary
-                mutationLoading={false}
-                float="right"
-                onClick={() => console.log('Next page')}>Next</ButtonSecondary>
             </FadeIn>
           </div>
         </div>
