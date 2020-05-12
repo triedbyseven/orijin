@@ -33,7 +33,6 @@ const InputPrice: React.SFC<InputPriceProps> = ({
           onChange={(e) => onChange(e)}
           required
         />
-
       </div>
       <style jsx>{`
           .form-control {
