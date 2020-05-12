@@ -19,7 +19,7 @@ export interface ProductState {
   inventory: number;
 }
 
-export interface ProductProps {}
+export interface ProductProps { }
 
 const Product: React.SFC<ProductProps> = (props) => {
   const [state, updateState]: any = useState<ProductState>({

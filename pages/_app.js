@@ -5,6 +5,7 @@ import { ApolloProvider } from 'react-apollo';
 import { withRouter } from 'next/router';
 import { Sidebar } from '../components/Dashboard';
 import 'bootstrap/dist/css/bootstrap.min.css';
+import '../public/css/globalstyle.css'
 
 class MyApp extends App {
   render() {
