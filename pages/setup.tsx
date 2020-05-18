@@ -14,10 +14,11 @@ const Setup: React.FC = () => {
     onCompleted: () => {
       alert('Okay your ready to rock!');
       router.push('/');
-    }
+    },
   });
 
   useEffect(() => {
+    console.log('Loaded');
     updateHeight(window.innerHeight);
   }, []);
 
@@ -37,7 +38,6 @@ const Setup: React.FC = () => {
       window.addEventListener('resize', handleResize);
       return () => window.removeEventListener('resize', handleResize);
     }, []); // Empty array ensures that effect is only run on mount and unmount
-
   }
 
   const startSetup = (success: boolean) => {
@@ -50,8 +50,8 @@ const Setup: React.FC = () => {
         <div className="row align-items-center veritcalAlign">
           <div className="col">
             <FadeIn>
-              <ProgressBasic />
-              <h1>Welcome to Orijin.</h1>
+              {/* <ProgressBasic /> */}
+              {/* <h1>Welcome to Orijin.</h1> */}
               <SetUpForm />
             </FadeIn>
           </div>

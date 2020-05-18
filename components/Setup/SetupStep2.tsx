@@ -1,50 +1,68 @@
-import { useEffect, useRef } from 'react';
+import { useEffect } from 'react';
 import { FormGroup, InputText } from '../Ui/Form/index';
 
 export interface SetupStep2Props {
-
+  companyNameRef: any;
+  emailRef: any;
+  usernameRef: any;
+  passwordRef: any;
+  isCurrentStep: boolean;
 }
 
-const SetupStep2: React.SFC<SetupStep2Props> = () => {
-  const focusRef = useRef(null);
-
+const SetupStep2: React.SFC<SetupStep2Props> = ({
+  companyNameRef,
+  emailRef,
+  usernameRef,
+  passwordRef,
+  isCurrentStep,
+}) => {
   useEffect(() => {
-    focusRef.current.focus()
-  }, []);
+    if (!isCurrentStep)
+      setTimeout(() => {
+        companyNameRef.current.focus();
+      }, 400);
+  }, [isCurrentStep]);
 
   return (
     <div className="form-row mb-4">
       <FormGroup>
         <InputText
-          ref={focusRef}
+          ref={companyNameRef}
           labelTitle="Company Name"
           name="companyName"
           placeholderTitle=""
-          onChange={() => console.log('onChange')} />
+          disable={isCurrentStep}
+        />
       </FormGroup>
       <FormGroup>
         <InputText
+          ref={emailRef}
           labelTitle="Your Email"
           name="yourEmail"
           placeholderTitle=""
-          onChange={() => console.log('onChange')} />
+          disable={isCurrentStep}
+        />
       </FormGroup>
       <FormGroup>
         <InputText
+          ref={usernameRef}
           labelTitle="Username"
           name="username"
           placeholderTitle=""
-          onChange={() => console.log('onChange')} />
+          disable={isCurrentStep}
+        />
       </FormGroup>
       <FormGroup>
         <InputText
+          ref={passwordRef}
           labelTitle="Password"
           name="password"
           placeholderTitle=""
-          onChange={() => console.log('onChange')} />
+          disable={isCurrentStep}
+        />
       </FormGroup>
     </div>
   );
-}
+};
 
 export default SetupStep2;

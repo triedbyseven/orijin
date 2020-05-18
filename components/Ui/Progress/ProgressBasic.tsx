@@ -1,12 +1,28 @@
 export interface ProgressBasicProps {
-
+  currentStep: CurrentStep;
+  steps: Steps[];
 }
 
-const ProgressBasic: React.SFC<ProgressBasicProps> = () => {
+interface CurrentStep {
+  id: number;
+  index: number;
+  step: any;
+}
+
+interface Steps {
+  id: number;
+  index: number;
+  step: any;
+}
+
+const ProgressBasic: React.SFC<ProgressBasicProps> = ({ currentStep, steps }) => {
   return (
     <div className="progessbar-container mb-5">
-      <div className="step">1</div>
-      <div className="step">2</div>
+      {steps.map((step) => (
+        <div key={step.id} className={`step ${currentStep.index === step.index ? 'active' : null}`}>
+          {step.index + 1}
+        </div>
+      ))}
       <div className="step">3</div>
       <style jsx>
         {`
@@ -23,10 +39,11 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = () => {
             line-height: 30px;
             text-align: center;
             background-color: #eef4fe;
+            border: 1px solid transparent;
             border-radius: 22px;
-            webkit-box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
-            -moz-box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
-            box-shadow: 0px 10px 24px 0px rgba(0,123,255,0.30);
+            webkit-box-shadow: 0px 10px 24px 0px rgba(0, 123, 255, 0.3);
+            -moz-box-shadow: 0px 10px 24px 0px rgba(0, 123, 255, 0.3);
+            box-shadow: 0px 10px 24px 0px rgba(0, 123, 255, 0.3);
           }
           .progessbar-container .active {
             border: 1px solid #111b60;
@@ -35,6 +52,6 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = () => {
       </style>
     </div>
   );
-}
+};
 
 export default ProgressBasic;

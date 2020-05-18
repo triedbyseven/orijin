@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useRef } from 'react';
 import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
@@ -19,23 +19,48 @@ interface Step {
 interface FormValues {
   firstName: string;
   lastName: string;
+  companyName: string;
+  email: string;
+  username: string;
+  password: string;
 }
 
 export interface SetUpformProps {}
 
 const SetUpform: React.SFC<SetUpformProps> = () => {
+  const firstNameRef = useRef(null);
+  const lastNameRef = useRef(null);
+  const companyNameRef = useRef(null);
+  const emailRef = useRef(null);
+  const usernameRef = useRef(null);
+  const passwordRef = useRef(null);
+
   const steps = [
-    { id: 1, index: 0, step: () => <SetupStep1 formValues={state.formValues} /> },
-    { id: 2, index: 1, step: () => <SetupStep2 /> },
+    {
+      id: 1,
+      index: 0,
+      step: (isCurrentStep) => (
+        <SetupStep1 firstNameRef={firstNameRef} lastNameRef={lastNameRef} isCurrentStep={isCurrentStep} />
+      ),
+    },
+    {
+      id: 2,
+      index: 1,
+      step: (isCurrentStep) => (
+        <SetupStep2
+          isCurrentStep={isCurrentStep}
+          companyNameRef={companyNameRef}
+          emailRef={emailRef}
+          usernameRef={usernameRef}
+          passwordRef={passwordRef}
+        />
+      ),
+    },
   ];
 
   const [state, updateState] = useState<SetUpformState>({
     currentStep: steps[0],
     steps: steps,
-    formValues: {
-      firstName: '',
-      lastName: '',
-    },
   });
 
   const nextStep = () => {
@@ -43,20 +68,32 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
     const newIndex = state.currentStep.index + 1;
 
-    gsap.to('.animate-currentStep', 0.3, {
-      x: -10,
-      y: 10,
+    updateState({ currentStep: steps[newIndex], steps: steps });
+
+    gsap.to('.animate-currentStep', 0.2, {
       opacity: 0,
-      ease: 'power3',
+      y: 25,
+      ease: 'power4',
       onComplete: () => {
+        gsap.to('.animate-currentStep', 0, {
+          x: '-100%',
+          ease: 'power4',
+          onComplete: () => {
+            gsap.to('.animate-currentStep', 0.2, {
+              opacity: 1,
+              y: 0,
+              ease: 'power4',
+            });
+          },
+        });
         // Updates state with new component and destroys old ones
-        updateState({ currentStep: steps[newIndex], steps: steps });
-        gsap.fromTo(
-          '.animate-currentStep',
-          0.3,
-          { x: 10, y: 10, opacity: 0, ease: 'power3' },
-          { x: 0, y: 0, opacity: 1, ease: 'power3' }
-        );
+        // updateState({ currentStep: steps[newIndex], steps: steps });
+        // gsap.fromTo(
+        //   '.animate-currentStep',
+        //   0.3,
+        //   { x: 10, y: 10, opacity: 0, ease: 'power3' },
+        //   { x: 0, y: 0, opacity: 1, ease: 'power3' }
+        // );
       },
     });
   };
@@ -66,37 +103,52 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
     const newIndex = state.currentStep.index - 1;
 
+    updateState({ currentStep: steps[newIndex], steps: steps });
+
     // Animate out
-    gsap.to('.animate-currentStep', 0.5, {
-      x: 10,
-      y: 10,
+    gsap.to('.animate-currentStep', 0.2, {
       opacity: 0,
-      ease: 'power3',
+      y: 50,
+      ease: 'power4',
       onComplete: () => {
+        gsap.to('.animate-currentStep', 0, {
+          x: `${state.steps.length / 100}%`,
+          ease: 'power4',
+          onComplete: () => {
+            gsap.to('.animate-currentStep', 0.2, {
+              opacity: 1,
+              y: 0,
+              ease: 'power4',
+            });
+          },
+        });
         // Updates state with new component and destroys old ones
-        updateState({ currentStep: steps[newIndex], steps: steps });
-        gsap.fromTo(
-          '.animate-currentStep',
-          0.5,
-          { x: -10, y: 10, opacity: 0, ease: 'power3' },
-          { x: 0, y: 0, opacity: 1, ease: 'power3' }
-        );
+        // updateState({ currentStep: steps[newIndex], steps: steps });
+        // gsap.fromTo(
+        //   '.animate-currentStep',
+        //   0.5,
+        //   { x: -10, y: 10, opacity: 0, ease: 'power3' },
+        //   { x: 0, y: 0, opacity: 1, ease: 'power3' }
+        // );
       },
     });
   };
 
   return (
     <>
-      <ProgressBasic />
+      <ProgressBasic currentStep={state.currentStep} steps={state.steps} />
       <form>
-        <div className="animate-currentStep">{state.currentStep.step()}</div>
+        {state.steps.map((step) => (
+          <div key={step.id} className="animate-currentStep">
+            {step.step(step.id !== state.currentStep.id ? true : false)}
+          </div>
+        ))}
       </form>
       {state.currentStep.index > 0 ? (
         <ButtonSecondary mutationLoading={false} float="left" onClick={() => lastStep()}>
           Back
         </ButtonSecondary>
       ) : null}
-      {console.log(state.steps.length)}
       {state.currentStep.index < state.steps.length - 1 ? (
         <ButtonSecondary mutationLoading={false} float="right" onClick={() => nextStep()}>
           Next
@@ -105,12 +157,19 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       <style jsx>
         {`
           form {
+            overflow: hidden;
+            display: flex;
             min-height: 200px;
           }
           p {
             font-family: 'Montserrat';
             font-weight: 500;
             margin-bottom: 40px;
+          }
+          .animate-currentStep {
+            width: 100%;
+            flex-shrink: 0;
+            opacity: 1;
           }
         `}
       </style>

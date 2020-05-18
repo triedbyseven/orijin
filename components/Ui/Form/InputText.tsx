@@ -1,47 +1,43 @@
 import React, { forwardRef } from 'react';
 
 export interface InputPriceProps {
-  onChange: any;
+  onChange?: any;
   labelTitle: string;
   name: string;
   placeholderTitle: string;
   ref?: any;
+  disable?: boolean;
 }
 
-const InputPrice: React.SFC<InputPriceProps> = forwardRef(({
-  onChange,
-  labelTitle,
-  name,
-  placeholderTitle,
-}, ref: any) => {
-  return (
-    <>
-      <label className="sr-only" htmlFor={`input${labelTitle}`}>
-        {labelTitle}
-      </label>
-      <div className="label">
-        <label htmlFor={`input${labelTitle}`}>
+const InputPrice: React.SFC<InputPriceProps> = forwardRef(
+  ({ onChange, labelTitle, name, placeholderTitle, disable = false }, ref: any) => {
+    return (
+      <>
+        <label className="sr-only" htmlFor={`input-${name}`}>
           {labelTitle}
         </label>
-      </div>
-      <div className="input-group mb-2">
-        <input
-          ref={ref}
-          type="text"
-          className="form-control"
-          id={`input${labelTitle}`}
-          placeholder={placeholderTitle}
-          name={name}
-          onChange={(e) => onChange(e)}
-          required
-        />
-      </div>
-      <style jsx>{`
+        <div className="label">
+          <label htmlFor={`input-${name}`}>{labelTitle}</label>
+        </div>
+        <div className="input-group mb-2">
+          <input
+            ref={ref}
+            type="text"
+            className="form-control"
+            id={`input-${name}`}
+            placeholder={placeholderTitle}
+            name={name}
+            onChange={onChange}
+            disabled={disable}
+            required
+          />
+        </div>
+        <style jsx>{`
           .form-control {
             padding: 0.375rem 1rem;
             transition: none;
           }
-          .label { 
+          .label {
             margin-bottom: 14px;
             font-family: 'Montserrat';
             font-weight: 700;
@@ -67,9 +63,14 @@ const InputPrice: React.SFC<InputPriceProps> = forwardRef(({
             border-color: transparent;
             border: 1px solid transparent;
           }
+          .form-control:disabled,
+          .form-control[readonly] {
+            background-color: #eef4fe;
+          }
         `}</style>
-    </>
-  );
-});
+      </>
+    );
+  }
+);
 
 export default InputPrice;
