@@ -2,6 +2,7 @@ import { useState, useRef } from 'react';
 import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
+import * as yup from 'yup';
 import gsap from 'gsap';
 
 export interface SetUpformState {
@@ -114,9 +115,30 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
     });
   };
 
-  const createAccount = () => {
-    alert('Account Created!');
+  const createAccount = async () => {
+    const values = { firstName: firstNameRef.current.value, lastName: lastNameRef.current.value, companyName: companyNameRef.current.value, email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value }
+
+    const schema = yup.object().shape({
+      firstName: yup.string().required(),
+      lastName: yup.string().required(),
+      companyName: yup.string().required(),
+      email: yup.string().email(),
+      username: yup.string().required(),
+      password: yup.string().required(),
+
+    });
+    try {
+      const res = await schema.validate(values, { abortEarly: false });
+
+      console.log(res);
+    } catch (err) {
+      console.log(err);
+    }
+
+
   }
+
+
 
   return (
     <>
@@ -160,6 +182,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
             width: 100%;
             flex-shrink: 0;
             opacity: 1;
+            padding: 0 .25rem;
           }
         `}
       </style>
