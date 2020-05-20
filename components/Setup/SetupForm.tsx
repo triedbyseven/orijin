@@ -1,6 +1,6 @@
 import { useState, useRef } from 'react';
 import { SetupStep1, SetupStep2 } from './';
-import { ButtonSecondary } from '../../components/Ui/Button';
+import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
 import gsap from 'gsap';
 
@@ -25,7 +25,7 @@ interface FormValues {
   password: string;
 }
 
-export interface SetUpformProps {}
+export interface SetUpformProps { }
 
 const SetUpform: React.SFC<SetUpformProps> = () => {
   const firstNameRef = useRef(null);
@@ -145,15 +145,21 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
         ))}
       </form>
       {state.currentStep.index > 0 ? (
-        <ButtonSecondary mutationLoading={false} float="left" onClick={() => lastStep()}>
+        <ButtonSecondary ignoreIndex={true} mutationLoading={false} float="left" onClick={() => lastStep()}>
           Back
         </ButtonSecondary>
       ) : null}
       {state.currentStep.index < state.steps.length - 1 ? (
-        <ButtonSecondary mutationLoading={false} float="right" onClick={() => nextStep()}>
+        <ButtonSecondary ignoreIndex={false} mutationLoading={false} float="right" onClick={() => nextStep()}>
           Next
         </ButtonSecondary>
       ) : null}
+      {
+        state.currentStep.index === state.steps.length - 1 ? (
+          <ButtonPrimary mutationLoading={false} float="right" onClick={() => alert('Account created!')}>
+            Create My Account
+          </ButtonPrimary>) : null
+      }
       <style jsx>
         {`
           form {

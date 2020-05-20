@@ -5,6 +5,7 @@ export interface ButtonProps {
   onClick: any;
   maxWidth?: number;
   float?: string;
+  ignoreIndex?: boolean;
 }
 
 const Button: React.SFC<ButtonProps> = ({
@@ -13,6 +14,7 @@ const Button: React.SFC<ButtonProps> = ({
   onClick,
   maxWidth,
   float = 'left',
+  ignoreIndex = false
 }) => {
   return (
     <button
@@ -20,6 +22,7 @@ const Button: React.SFC<ButtonProps> = ({
       className={`float-${float}`}
       disabled={mutationLoading}
       onClick={onClick}
+      tabIndex={ignoreIndex ? -1 : null}
     >
       {children}
       <style jsx>{`

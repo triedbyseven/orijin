@@ -29,21 +29,21 @@ const Button: React.SFC<ButtonProps> = ({
           max-width: ${maxWidth ? maxWidth + 'px' : 'inherit'};
           font-size: 16px;
           font-weight: 700;
-          color: #111b60;
+          color: #eef4fe;
           padding: ${maxWidth ? '0 0' : '0 2.25rem'};
-          background-color: #eef4fe;
+          background-color: #000;
           border-radius: 16px;
           border: 1px transparent;
           webkit-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
           -moz-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
           box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
-          transition: none;
+          transition: 1s;
         }
         button:focus {
           outline: 0;
-          webkit-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
-          -moz-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
-          box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.25);
+          webkit-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.45);
+          -moz-box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.45);
+          box-shadow: 25px 37px 34px 0px rgba(0,123,255,0.45);
         }
       `}</style>
     </button>
