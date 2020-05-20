@@ -7,6 +7,7 @@ export interface SetupStep2Props {
   usernameRef: any;
   passwordRef: any;
   isCurrentStep: boolean;
+  errors: any;
 }
 
 const SetupStep2: React.SFC<SetupStep2Props> = ({
@@ -15,6 +16,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
   usernameRef,
   passwordRef,
   isCurrentStep,
+  errors,
 }) => {
   useEffect(() => {
     if (!isCurrentStep)
@@ -32,6 +34,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
           name="companyName"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.companyName}
         />
       </FormGroup>
       <FormGroup>
@@ -41,6 +44,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
           name="yourEmail"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.email}
         />
       </FormGroup>
       <FormGroup>
@@ -50,6 +54,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
           name="username"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.username}
         />
       </FormGroup>
       <FormGroup>
@@ -59,6 +64,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
           name="password"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.password}
         />
       </FormGroup>
     </div>

@@ -5,9 +5,10 @@ export interface SetupStep1Props {
   firstNameRef: any;
   lastNameRef: any;
   isCurrentStep: boolean;
+  errors: any;
 }
 
-const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef = '', isCurrentStep }) => {
+const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef = '', isCurrentStep, errors }) => {
   useEffect(() => {
     if (!isCurrentStep)
       setTimeout(() => {
@@ -24,6 +25,7 @@ const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef
           name="firstName"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.firstName}
         />
       </FormGroup>
       <FormGroup>
@@ -33,6 +35,7 @@ const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef
           name="lastName"
           placeholderTitle=""
           disable={isCurrentStep}
+          error={errors.inputErrors.lastName}
         />
       </FormGroup>
     </div>
