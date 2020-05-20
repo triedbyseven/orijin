@@ -114,6 +114,10 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
     });
   };
 
+  const createAccount = () => {
+    alert('Account Created!');
+  }
+
   return (
     <>
       <ProgressBasic currentStep={state.currentStep} steps={state.steps} />
@@ -136,7 +140,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       ) : null}
       {
         state.currentStep.index === state.steps.length - 1 ? (
-          <ButtonPrimary mutationLoading={false} float="right" onClick={() => alert('Account created!')}>
+          <ButtonPrimary mutationLoading={false} float="right" onClick={() => createAccount()}>
             Create My Account
           </ButtonPrimary>) : null
       }
