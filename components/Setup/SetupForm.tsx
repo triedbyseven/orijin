@@ -7,22 +7,12 @@ import gsap from 'gsap';
 export interface SetUpformState {
   currentStep: Step;
   steps: Step[];
-  formValues?: FormValues;
 }
 
 interface Step {
   id: number;
   index: number;
   step: any;
-}
-
-interface FormValues {
-  firstName: string;
-  lastName: string;
-  companyName: string;
-  email: string;
-  username: string;
-  password: string;
 }
 
 export interface SetUpformProps { }
