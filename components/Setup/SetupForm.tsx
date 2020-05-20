@@ -27,23 +27,13 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
   const steps = [
     {
-      id: 1,
-      index: 0,
-      step: (isCurrentStep) => (
+      id: 1, index: 0, step: (isCurrentStep) => (
         <SetupStep1 firstNameRef={firstNameRef} lastNameRef={lastNameRef} isCurrentStep={isCurrentStep} />
       ),
     },
     {
-      id: 2,
-      index: 1,
-      step: (isCurrentStep) => (
-        <SetupStep2
-          isCurrentStep={isCurrentStep}
-          companyNameRef={companyNameRef}
-          emailRef={emailRef}
-          usernameRef={usernameRef}
-          passwordRef={passwordRef}
-        />
+      id: 2, index: 1, step: (isCurrentStep) => (
+        <SetupStep2 isCurrentStep={isCurrentStep} companyNameRef={companyNameRef} emailRef={emailRef} usernameRef={usernameRef} passwordRef={passwordRef} />
       ),
     },
   ];
