@@ -7,10 +7,11 @@ export interface InputPriceProps {
   placeholderTitle: string;
   ref?: any;
   disable?: boolean;
+  error?: boolean;
 }
 
 const InputPrice: React.SFC<InputPriceProps> = forwardRef(
-  ({ onChange, labelTitle, name, placeholderTitle, disable = false }, ref: any) => {
+  ({ onChange, labelTitle, name, placeholderTitle, disable = false, error = false }, ref: any) => {
     return (
       <>
         <label className="sr-only" htmlFor={`input-${name}`}>
@@ -23,7 +24,7 @@ const InputPrice: React.SFC<InputPriceProps> = forwardRef(
           <input
             ref={ref}
             type="text"
-            className="form-control"
+            className={`form-control ${error ? 'is-invalid' : null}`}
             id={`input-${name}`}
             placeholder={placeholderTitle}
             name={name}
