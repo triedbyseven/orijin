@@ -1,6 +1,5 @@
 import { useEffect } from 'react';
 import { FormGroup, InputText } from '../Ui/Form/index';
-import { onChangeText } from '../../utils/formHandlers';
 
 export interface SetupStep1Props {
   firstNameRef: any;
