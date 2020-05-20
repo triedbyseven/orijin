@@ -28,13 +28,13 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
   const steps = [
     {
-      id: 1, index: 0, step: (isCurrentStep) => (
-        <SetupStep1 firstNameRef={firstNameRef} lastNameRef={lastNameRef} isCurrentStep={isCurrentStep} />
+      id: 1, index: 0, step: (isCurrentStep, errors) => (
+        <SetupStep1 firstNameRef={firstNameRef} lastNameRef={lastNameRef} isCurrentStep={isCurrentStep} errors={errors} />
       ),
     },
     {
-      id: 2, index: 1, step: (isCurrentStep) => (
-        <SetupStep2 isCurrentStep={isCurrentStep} companyNameRef={companyNameRef} emailRef={emailRef} usernameRef={usernameRef} passwordRef={passwordRef} />
+      id: 2, index: 1, step: (isCurrentStep, errors) => (
+        <SetupStep2 isCurrentStep={isCurrentStep} companyNameRef={companyNameRef} emailRef={emailRef} usernameRef={usernameRef} passwordRef={passwordRef} errors={errors} />
       ),
     },
   ];
@@ -43,6 +43,17 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
     currentStep: steps[0],
     steps: steps,
   });
+  const [errors, updateErrors] = useState({
+    allErrors: [],
+    inputErrors: {
+      firstName: false,
+      lastName: false,
+      email: false,
+      companyName: false,
+      username: false,
+      password: false,
+    }
+  })
 
   const nextStep = () => {
     if (state.currentStep.index + 1 === state.steps.length) return;
@@ -122,7 +133,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       firstName: yup.string().required(),
       lastName: yup.string().required(),
       companyName: yup.string().required(),
-      email: yup.string().email(),
+      email: yup.string().email().required(),
       username: yup.string().required(),
       password: yup.string().required(),
 
@@ -132,13 +143,18 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
       console.log(res);
     } catch (err) {
+      let inputErrors = {};
+
+      for (const key of err.inner) {
+        inputErrors[key.path] = key.path ? true : false;
+      };
+
+      console.log(inputErrors);
       console.log(err);
+
+      updateErrors({ allErrors: err.errors, inputErrors });
     }
-
-
   }
-
-
 
   return (
     <>
@@ -146,7 +162,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       <form>
         {state.steps.map((step) => (
           <div key={step.id} className="animate-currentStep">
-            {step.step(step.id !== state.currentStep.id ? true : false)}
+            {step.step(step.id !== state.currentStep.id ? true : false, errors)}
           </div>
         ))}
       </form>
