@@ -16,9 +16,7 @@ interface SetUpformStateErrors {
   inputErrors: InputErrors
 }
 
-export interface SetUpformProps { }
-
-const SetUpform: React.SFC<SetUpformProps> = () => {
+const SetUpform: React.FC = () => {
   const firstNameRef = useRef(null);
   const lastNameRef = useRef(null);
   const companyNameRef = useRef(null);
