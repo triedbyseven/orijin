@@ -2,7 +2,7 @@ import { useState, useRef } from 'react';
 import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
-import * as yup from 'yup';
+import { setupFormSchema } from '../../utils/formValidation';
 import gsap from 'gsap';
 
 export interface SetUpformState {
@@ -143,17 +143,8 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
   const createAccount = async () => {
     const values = { firstName: firstNameRef.current.value, lastName: lastNameRef.current.value, companyName: companyNameRef.current.value, email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value }
 
-    const schema = yup.object().shape({
-      firstName: yup.string().required(),
-      lastName: yup.string().required(),
-      companyName: yup.string().required(),
-      email: yup.string().email().required(),
-      username: yup.string().required(),
-      password: yup.string().required(),
-
-    });
     try {
-      const res = await schema.validate(values, { abortEarly: false });
+      const res = await setupFormSchema.validate(values, { abortEarly: false });
 
       console.log(res);
     } catch (err) {
