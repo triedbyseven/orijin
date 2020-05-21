@@ -45,3 +45,39 @@ export const nextStep = (state, steps, updateState) => {
     },
   });
 }
+
+export const lastStep = (state, steps, updateState) => {
+  if (state.currentStep.index === 0) return;
+
+  const newIndex = state.currentStep.index - 1;
+
+  updateState({ currentStep: steps[newIndex], steps: steps });
+
+  // Animate out
+  gsap.to('.animate-currentStep', 0.2, {
+    opacity: 0,
+    y: 50,
+    ease: 'power4',
+    onComplete: () => {
+      gsap.to('.animate-currentStep', 0, {
+        x: `${state.steps.length / 100}%`,
+        ease: 'power4',
+        onComplete: () => {
+          gsap.to('.animate-currentStep', 0.2, {
+            opacity: 1,
+            y: 0,
+            ease: 'power4',
+          });
+        },
+      });
+      // Updates state with new component and destroys old ones
+      // updateState({ currentStep: steps[newIndex], steps: steps });
+      // gsap.fromTo(
+      //   '.animate-currentStep',
+      //   0.5,
+      //   { x: -10, y: 10, opacity: 0, ease: 'power3' },
+      //   { x: 0, y: 0, opacity: 1, ease: 'power3' }
+      // );
+    },
+  });
+}

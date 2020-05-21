@@ -3,9 +3,8 @@ import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
 import { setupFormSchema } from '../../utils/formValidation';
-import { nextStep } from '../../utils/formHandlers';
+import { nextStep, lastStep } from '../../utils/formHandlers';
 import { Step, InputErrors } from '../../interfaces/setupform/SetUpformState';
-import gsap from 'gsap';
 
 export interface SetUpformState {
   currentStep: Step;
@@ -56,42 +55,6 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
     }
   })
 
-  const lastStep = () => {
-    if (state.currentStep.index === 0) return;
-
-    const newIndex = state.currentStep.index - 1;
-
-    updateState({ currentStep: steps[newIndex], steps: steps });
-
-    // Animate out
-    gsap.to('.animate-currentStep', 0.2, {
-      opacity: 0,
-      y: 50,
-      ease: 'power4',
-      onComplete: () => {
-        gsap.to('.animate-currentStep', 0, {
-          x: `${state.steps.length / 100}%`,
-          ease: 'power4',
-          onComplete: () => {
-            gsap.to('.animate-currentStep', 0.2, {
-              opacity: 1,
-              y: 0,
-              ease: 'power4',
-            });
-          },
-        });
-        // Updates state with new component and destroys old ones
-        // updateState({ currentStep: steps[newIndex], steps: steps });
-        // gsap.fromTo(
-        //   '.animate-currentStep',
-        //   0.5,
-        //   { x: -10, y: 10, opacity: 0, ease: 'power3' },
-        //   { x: 0, y: 0, opacity: 1, ease: 'power3' }
-        // );
-      },
-    });
-  };
-
   const createAccount = async () => {
     const values = { firstName: firstNameRef.current.value, lastName: lastNameRef.current.value, companyName: companyNameRef.current.value, email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value }
 
@@ -124,7 +87,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
         ))}
       </form>
       {state.currentStep.index > 0 ? (
-        <ButtonSecondary ignoreIndex={true} mutationLoading={false} float="left" onClick={() => lastStep()}>
+        <ButtonSecondary ignoreIndex={true} mutationLoading={false} float="left" onClick={() => lastStep(state, steps, updateState)}>
           Back
         </ButtonSecondary>
       ) : null}
