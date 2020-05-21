@@ -3,6 +3,7 @@ import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
 import { setupFormSchema } from '../../utils/formValidation';
+import { Step, InputErrors } from '../../interfaces/setupform/SetUpformState';
 import gsap from 'gsap';
 
 export interface SetUpformState {
@@ -10,24 +11,9 @@ export interface SetUpformState {
   steps: Step[];
 }
 
-interface Step {
-  id: number;
-  index: number;
-  step: any;
-}
-
 interface SetUpformStateErrors {
   allErrors: string[],
   inputErrors: InputErrors
-}
-
-interface InputErrors {
-  firstName: boolean;
-  lastName: boolean;
-  email: boolean;
-  companyName: boolean;
-  username: boolean;
-  password: boolean;
 }
 
 export interface SetUpformProps { }
