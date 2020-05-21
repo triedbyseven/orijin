@@ -24,7 +24,7 @@ const InputPrice: React.SFC<InputPriceProps> = forwardRef(
           <input
             ref={ref}
             type="text"
-            className={`form-control ${error ? 'is-invalid' : null}`}
+            className={`form-control ${error ? 'is-invalid' : ''} ${error === false && error !== null ? 'is-valid' : ''}`}
             id={`input-${name}`}
             placeholder={placeholderTitle}
             name={name}
