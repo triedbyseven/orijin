@@ -18,6 +18,8 @@ export const nextStep = (state, steps, updateState) => {
 
   updateState({ currentStep: steps[newIndex], steps: steps });
 
+  gsap.to('.active-line', 0.5, { attr: { x2: '100%' }, ease: 'power4' });
+
   gsap.to('.animate-currentStep', 0.2, {
     opacity: 0,
     y: 25,
@@ -51,7 +53,12 @@ export const lastStep = (state, steps, updateState) => {
 
   const newIndex = state.currentStep.index - 1;
 
+
   updateState({ currentStep: steps[newIndex], steps: steps });
+
+  setTimeout(() => {
+    gsap.to('.active-line', 0.5, { attr: { x2: '0' }, ease: 'power4' });
+  }, 50);
 
   // Animate out
   gsap.to('.animate-currentStep', 0.2, {

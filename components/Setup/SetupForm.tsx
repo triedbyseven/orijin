@@ -76,6 +76,9 @@ const SetUpform: React.FC = () => {
 
   return (
     <>
+      {/* <div className="progress" style={{ height: 1, marginBottom: '2rem' }}>
+        <div className="progress-bar" role="progressbar" style={{ width: '1%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100}></div>
+      </div> */}
       <ProgressBasic currentStep={state.currentStep} steps={state.steps} />
       <form>
         {state.steps.map((step) => (
