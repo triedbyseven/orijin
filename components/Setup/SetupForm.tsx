@@ -3,6 +3,7 @@ import { SetupStep1, SetupStep2 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
 import { setupFormSchema } from '../../utils/formValidation';
+import { nextStep } from '../../utils/formHandlers';
 import { Step, InputErrors } from '../../interfaces/setupform/SetUpformState';
 import gsap from 'gsap';
 
@@ -54,41 +55,6 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
       password: false,
     }
   })
-
-  const nextStep = () => {
-    if (state.currentStep.index + 1 === state.steps.length) return;
-
-    const newIndex = state.currentStep.index + 1;
-
-    updateState({ currentStep: steps[newIndex], steps: steps });
-
-    gsap.to('.animate-currentStep', 0.2, {
-      opacity: 0,
-      y: 25,
-      ease: 'power4',
-      onComplete: () => {
-        gsap.to('.animate-currentStep', 0, {
-          x: '-100%',
-          ease: 'power4',
-          onComplete: () => {
-            gsap.to('.animate-currentStep', 0.2, {
-              opacity: 1,
-              y: 0,
-              ease: 'power4',
-            });
-          },
-        });
-        // Updates state with new component and destroys old ones
-        // updateState({ currentStep: steps[newIndex], steps: steps });
-        // gsap.fromTo(
-        //   '.animate-currentStep',
-        //   0.3,
-        //   { x: 10, y: 10, opacity: 0, ease: 'power3' },
-        //   { x: 0, y: 0, opacity: 1, ease: 'power3' }
-        // );
-      },
-    });
-  };
 
   const lastStep = () => {
     if (state.currentStep.index === 0) return;
@@ -163,7 +129,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
         </ButtonSecondary>
       ) : null}
       {state.currentStep.index < state.steps.length - 1 ? (
-        <ButtonSecondary ignoreIndex={false} mutationLoading={false} float="right" onClick={() => nextStep()}>
+        <ButtonSecondary ignoreIndex={false} mutationLoading={false} float="right" onClick={() => nextStep(state, steps, updateState)}>
           Next
         </ButtonSecondary>
       ) : null}
