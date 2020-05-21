@@ -44,12 +44,12 @@ const SetUpform: React.FC = () => {
   const [errors, updateErrors] = useState<SetUpformStateErrors>({
     allErrors: [],
     inputErrors: {
-      firstName: false,
-      lastName: false,
-      email: false,
-      companyName: false,
-      username: false,
-      password: false,
+      firstName: null,
+      lastName: null,
+      email: null,
+      companyName: null,
+      username: null,
+      password: null,
     }
   })
 
