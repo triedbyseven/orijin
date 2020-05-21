@@ -16,6 +16,20 @@ interface Step {
   step: any;
 }
 
+interface SetUpformStateErrors {
+  allErrors: string[],
+  inputErrors: InputErrors
+}
+
+interface InputErrors {
+  firstName: boolean;
+  lastName: boolean;
+  email: boolean;
+  companyName: boolean;
+  username: boolean;
+  password: boolean;
+}
+
 export interface SetUpformProps { }
 
 const SetUpform: React.SFC<SetUpformProps> = () => {
@@ -43,7 +57,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
     currentStep: steps[0],
     steps: steps,
   });
-  const [errors, updateErrors] = useState({
+  const [errors, updateErrors] = useState<SetUpformStateErrors>({
     allErrors: [],
     inputErrors: {
       firstName: false,
@@ -143,7 +157,7 @@ const SetUpform: React.SFC<SetUpformProps> = () => {
 
       console.log(res);
     } catch (err) {
-      let inputErrors = {};
+      let inputErrors: any = {};
 
       for (const key of err.inner) {
         inputErrors[key.path] = key.path ? true : false;
