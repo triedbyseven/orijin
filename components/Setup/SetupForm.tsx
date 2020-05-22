@@ -1,5 +1,5 @@
 import { useState, useRef } from 'react';
-import { SetupStep1, SetupStep2 } from './';
+import { SetupStep1, SetupStep2, SetupSuccess } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
 import { setupFormSchema } from '../../utils/formValidation';
@@ -33,6 +33,11 @@ const SetUpform: React.FC = () => {
     {
       id: 2, index: 1, step: (isCurrentStep, errors) => (
         <SetupStep2 isCurrentStep={isCurrentStep} companyNameRef={companyNameRef} emailRef={emailRef} usernameRef={usernameRef} passwordRef={passwordRef} errors={errors} />
+      ),
+    },
+    {
+      id: 3, index: 2, step: (isCurrentStep, errors) => (
+        <SetupSuccess />
       ),
     },
   ];
@@ -76,16 +81,15 @@ const SetUpform: React.FC = () => {
 
   return (
     <>
-      {/* <div className="progress" style={{ height: 1, marginBottom: '2rem' }}>
-        <div className="progress-bar" role="progressbar" style={{ width: '1%' }} aria-valuenow={25} aria-valuemin={0} aria-valuemax={100}></div>
-      </div> */}
       <ProgressBasic currentStep={state.currentStep} steps={state.steps} />
       <form>
-        {state.steps.map((step) => (
-          <div key={step.id} className="animate-currentStep">
-            {step.step(step.id !== state.currentStep.id ? true : false, errors)}
-          </div>
-        ))}
+        <div className="slider-wrapper">
+          {state.steps.map((step) => (
+            <div key={step.id} className="step">
+              {step.step(step.id !== state.currentStep.id ? true : false, errors)}
+            </div>
+          ))}
+        </div>
       </form>
       {state.currentStep.index > 0 ? (
         <ButtonSecondary ignoreIndex={true} mutationLoading={false} float="left" onClick={() => lastStep(state, steps, updateState)}>
@@ -106,20 +110,28 @@ const SetUpform: React.FC = () => {
       <style jsx>
         {`
           form {
+            position: relative;
             overflow: hidden;
-            display: flex;
             min-height: 200px;
+          }
+          .slider-wrapper {
+            position: relative;
+            height: 100%;
+            width: 100%;
+            display: flex;
+            overflow:hidden;
           }
           p {
             font-family: 'Montserrat';
             font-weight: 500;
             margin-bottom: 40px;
           }
-          .animate-currentStep {
-            width: 100%;
+          .step {
+            position: relative;
             flex-shrink: 0;
-            opacity: 1;
-            padding: 0 .25rem;
+            width: 100%;
+            height: 100%;
+            padding: 0 .325rem;
           }
         `}
       </style>
