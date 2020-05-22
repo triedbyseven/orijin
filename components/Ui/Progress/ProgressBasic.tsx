@@ -19,8 +19,8 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = ({ currentStep, steps }) =>
   return (
     <div className="progessbar-container mb-5">
       {steps.map((step) => (
-        <div className="step-container">
-          <div key={step.id} className={`step ${currentStep.index === step.index ? 'active-step' : ''}`}>
+        <div key={step.id} className="step-container">
+          <div className={`step-progress ${currentStep.index === step.index ? 'active-step' : ''}`}>
             {step.index + 1}
           </div>
           <svg height="1" width="275" className="progress-line-container">
@@ -31,7 +31,6 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = ({ currentStep, steps }) =>
             </svg>
         </div>
       ))}
-      <div className="step">3</div>
       <style jsx>
         {`
           .progessbar-container {
@@ -42,7 +41,7 @@ const ProgressBasic: React.SFC<ProgressBasicProps> = ({ currentStep, steps }) =>
           .progessbar-container .step-container {
             position: relative;
           }
-          .progessbar-container .step {
+          .progessbar-container .step-progress {
             z-index: 10;
             position: relative;
             width: 30px;
