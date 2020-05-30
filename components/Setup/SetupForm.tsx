@@ -1,8 +1,7 @@
 import { useState, useRef } from 'react';
-import { SetupStep1, SetupStep2, SetupSuccess } from './';
+import { SetupStep1, SetupStep2, SetupStep3 } from './';
 import { ButtonSecondary, ButtonPrimary } from '../../components/Ui/Button';
 import { ProgressBasic } from '../../components/Ui/Progress';
-import { setupFormSchema } from '../../utils/formValidation';
 import { nextStep, lastStep } from '../../utils/formHandlers';
 import { Step, InputErrors } from '../../interfaces/setupform/SetUpformState';
 
@@ -17,12 +16,14 @@ interface SetUpformStateErrors {
 }
 
 const SetUpform: React.FC = () => {
-  const firstNameRef = useRef(null);
-  const lastNameRef = useRef(null);
-  const companyNameRef = useRef(null);
-  const emailRef = useRef(null);
-  const usernameRef = useRef(null);
-  const passwordRef = useRef(null);
+  const firstNameRef = useRef('');
+  const lastNameRef = useRef('');
+  const companyNameRef = useRef('');
+  const emailRef = useRef('');
+  const usernameRef = useRef('');
+  const passwordRef = useRef('');
+
+  const refs = { firstNameRef, lastNameRef, companyNameRef, emailRef, usernameRef, passwordRef };
 
   const steps = [
     {
@@ -36,8 +37,8 @@ const SetUpform: React.FC = () => {
       ),
     },
     {
-      id: 3, index: 2, step: (isCurrentStep, errors) => (
-        <SetupSuccess />
+      id: 3, index: 2, step: (isCurrentStep, errors, refs) => (
+        <SetupStep3 refs={refs} />
       ),
     },
   ];
@@ -56,37 +57,22 @@ const SetUpform: React.FC = () => {
       username: null,
       password: null,
     }
-  })
+  });
 
   const createAccount = async () => {
-    const values = { firstName: firstNameRef.current.value, lastName: lastNameRef.current.value, companyName: companyNameRef.current.value, email: emailRef.current.value, username: usernameRef.current.value, password: passwordRef.current.value }
-
-    try {
-      const res = await setupFormSchema.validate(values, { abortEarly: false });
-
-      console.log(res);
-    } catch (err) {
-      let inputErrors: any = {};
-
-      for (const key of err.inner) {
-        inputErrors[key.path] = key.path ? true : false;
-      };
-
-      console.log(inputErrors);
-      console.log(err);
-
-      updateErrors({ allErrors: err.errors, inputErrors });
-    }
+    console.log('Account created!');
   }
 
   return (
     <>
+      <h2>Sign Up</h2>
       <ProgressBasic currentStep={state.currentStep} steps={state.steps} />
+      {state.currentStep.index !== 2 ? <p>We just need a few details from you...</p> : <p>...please check if everything looks good.</p>}
       <form>
         <div className="slider-wrapper">
           {state.steps.map((step) => (
             <div key={step.id} className="step">
-              {step.step(step.id !== state.currentStep.id ? true : false, errors)}
+              {step.step(step.id !== state.currentStep.id ? true : false, errors, refs)}
             </div>
           ))}
         </div>
@@ -97,7 +83,7 @@ const SetUpform: React.FC = () => {
         </ButtonSecondary>
       ) : null}
       {state.currentStep.index < state.steps.length - 1 ? (
-        <ButtonSecondary ignoreIndex={false} mutationLoading={false} float="right" onClick={() => nextStep(state, steps, updateState)}>
+        <ButtonSecondary ignoreIndex={false} mutationLoading={false} float="right" onClick={() => nextStep(state, steps, updateState, updateErrors, refs)}>
           Next
         </ButtonSecondary>
       ) : null}
@@ -112,7 +98,7 @@ const SetUpform: React.FC = () => {
           form {
             position: relative;
             overflow: hidden;
-            min-height: 200px;
+            min-height: 210px;
           }
           .slider-wrapper {
             position: relative;
@@ -121,10 +107,18 @@ const SetUpform: React.FC = () => {
             display: flex;
             overflow:hidden;
           }
+          h2 {
+            font-size: 50px;
+            font-family: 'Montserrat';
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 3rem;
+          }
           p {
             font-family: 'Montserrat';
             font-weight: 500;
             margin-bottom: 40px;
+            text-align: center;
           }
           .step {
             position: relative;
