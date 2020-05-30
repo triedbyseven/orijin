@@ -20,6 +20,7 @@ const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef
     <div className="form-row mb-4">
       <FormGroup>
         <InputText
+          type="text"
           ref={firstNameRef}
           labelTitle="First Name"
           name="firstName"
@@ -30,6 +31,7 @@ const SetupStep1: React.SFC<SetupStep1Props> = ({ firstNameRef = '', lastNameRef
       </FormGroup>
       <FormGroup>
         <InputText
+          type="text"
           ref={lastNameRef}
           labelTitle="Last Name"
           name="lastName"
