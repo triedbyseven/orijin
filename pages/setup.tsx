@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 import { MUTATION_SETUP } from '../graphql';
 import { SetUpForm } from '../components/Setup';
-import { ProgressBasic } from '../components/Ui/Progress';
 import FadeIn from '../components/Ui/Animation/FadeIn';
 
 const Setup: React.FC = () => {
@@ -50,8 +49,6 @@ const Setup: React.FC = () => {
         <div className="row align-items-center veritcalAlign">
           <div className="col">
             <FadeIn>
-              {/* <ProgressBasic /> */}
-              {/* <h1>Welcome to Orijin.</h1> */}
               <SetUpForm />
             </FadeIn>
           </div>
