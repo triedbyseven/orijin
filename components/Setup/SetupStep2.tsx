@@ -29,6 +29,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
     <div className="form-row mb-4">
       <FormGroup>
         <InputText
+          type="text"
           ref={companyNameRef}
           labelTitle="Company Name"
           name="companyName"
@@ -39,6 +40,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
       </FormGroup>
       <FormGroup>
         <InputText
+          type="text"
           ref={emailRef}
           labelTitle="Your Email"
           name="yourEmail"
@@ -49,6 +51,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
       </FormGroup>
       <FormGroup>
         <InputText
+          type="text"
           ref={usernameRef}
           labelTitle="Username"
           name="username"
@@ -59,6 +62,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
       </FormGroup>
       <FormGroup>
         <InputText
+          type="password"
           ref={passwordRef}
           labelTitle="Password"
           name="password"
