@@ -8,7 +8,7 @@ import {
 } from '../../components//Ui/Form';
 import { useMutation } from '@apollo/react-hooks';
 import { MUTATION_ADD_PRODUCT, QUERY_PRODUCTS } from '../../graphql';
-import { Button } from '../../components/Ui/Button';
+import { ButtonSecondary } from '../../components/Ui/Button';
 import { Growing } from '../../components/Ui/Spinner';
 import { v4 as uuid } from 'uuid';
 import { withApollo } from 'react-apollo';
@@ -121,6 +121,8 @@ const Product: React.SFC<ProductProps> = (props) => {
         <h3 className="mb-5 font-weight-bold">Add Product</h3>
         <div className="form-row">
           <InputText
+            type="text"
+            error={null}
             onChange={onChange}
             labelTitle="Title"
             name="title"
@@ -144,11 +146,11 @@ const Product: React.SFC<ProductProps> = (props) => {
             />
           </FormGroup>
         </div>
-        <Button mutationLoading={false} onClick={() => createProduct()}>
+        <ButtonSecondary mutationLoading={false} float="right" onClick={() => createProduct()}>
           <Growing visible={MutationLoading} />
           {MutationLoading ? ' Loading...' : 'Save'}
           {MutationError ? 'Network error occured.' : ''}
-        </Button>
+        </ButtonSecondary>
       </div>
     </div>
   );
