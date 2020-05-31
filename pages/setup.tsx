@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
 import { useMutation } from '@apollo/react-hooks';
 import { MUTATION_SETUP } from '../graphql';
-import { SetUpForm } from '../components/Setup';
+import { SetupForm, SetupSuccess } from '../components/Setup';
 import FadeIn from '../components/Ui/Animation/FadeIn';
 
 const Setup: React.FC = () => {
@@ -15,6 +15,7 @@ const Setup: React.FC = () => {
       router.push('/');
     },
   });
+  const [success, setSuccess]: any = useState(true);
 
   useEffect(() => {
     console.log('Loaded');
@@ -49,7 +50,7 @@ const Setup: React.FC = () => {
         <div className="row align-items-center veritcalAlign">
           <div className="col">
             <FadeIn>
-              <SetUpForm />
+              {success ? <SetupSuccess /> : <SetupForm />}
             </FadeIn>
           </div>
         </div>
