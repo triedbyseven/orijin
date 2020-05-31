@@ -11,7 +11,6 @@ const Setup: React.FC = () => {
   const [height, updateHeight] = useState(0);
   const [runSetup, { loading: runSetupLoading }]: any = useMutation(MUTATION_SETUP, {
     onCompleted: () => {
-      alert('Okay your ready to rock!');
       setSuccess(true);
     },
   });
@@ -39,8 +38,9 @@ const Setup: React.FC = () => {
     }, []); // Empty array ensures that effect is only run on mount and unmount
   }
 
-  const startSetup = (success: boolean) => {
-    runSetup({ variables: { success } });
+  const startSetup = (success: boolean, businessName: any, fullName: any, username: any, email: any, password: any) => {
+    console.log(success, businessName, fullName, username, email, password);
+    runSetup({ variables: { success: success, businessName: businessName, fullName: fullName, username: username, email: email, password: password } });
   };
 
   return (
@@ -49,7 +49,7 @@ const Setup: React.FC = () => {
         <div className="row align-items-center veritcalAlign">
           <div className="col">
             <FadeIn>
-              {success ? <SetupSuccess router={router} /> : <SetupForm />}
+              {success ? <SetupSuccess router={router} /> : <SetupForm startSetup={startSetup} runSetupLoading={runSetupLoading} />}
             </FadeIn>
           </div>
         </div>
