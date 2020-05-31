@@ -3,11 +3,13 @@ const Product = require('../database/models/Product');
 
 runSetup = (_parent, _args, _context) => {
   // Creation of collection and documents
-  // const newConfig = new Config({ shipping: 4.25, price: 7 });
+  const { businessName, fullName, username, password } = _args;
 
   const newConfig = new Config({
-    businessName: 'Ice Cream Shop',
-    fullName: 'Michael Camacho',
+    businessName,
+    fullName,
+    username,
+    password
   });
 
   newConfig.save();
