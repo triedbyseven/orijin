@@ -5,6 +5,11 @@ import { ProgressBasic } from '../../components/Ui/Progress';
 import { nextStep, lastStep } from '../../utils/formHandlers';
 import { Step, InputErrors } from '../../interfaces/setupform/SetUpformState';
 
+interface SetUpFormProps {
+  startSetup: any;
+  runSetupLoading: boolean;
+}
+
 export interface SetUpformState {
   currentStep: Step;
   steps: Step[];
@@ -15,13 +20,13 @@ interface SetUpformStateErrors {
   inputErrors: InputErrors
 }
 
-const SetUpform: React.FC = () => {
-  const firstNameRef = useRef('');
-  const lastNameRef = useRef('');
-  const companyNameRef = useRef('');
-  const emailRef = useRef('');
-  const usernameRef = useRef('');
-  const passwordRef = useRef('');
+const SetUpform: React.FC<SetUpFormProps> = ({ startSetup, runSetupLoading }) => {
+  const firstNameRef: any = useRef('');
+  const lastNameRef: any = useRef('');
+  const companyNameRef: any = useRef('');
+  const emailRef: any = useRef('');
+  const usernameRef: any = useRef('');
+  const passwordRef: any = useRef('');
 
   const refs = { firstNameRef, lastNameRef, companyNameRef, emailRef, usernameRef, passwordRef };
 
@@ -60,7 +65,8 @@ const SetUpform: React.FC = () => {
   });
 
   const createAccount = async () => {
-    console.log('Account created!');
+    const fullName: string = `${firstNameRef.current.value} ${lastNameRef.current.value}`
+    startSetup(true, companyNameRef.current.value, fullName, usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
   }
 
   return (
@@ -89,7 +95,7 @@ const SetUpform: React.FC = () => {
       ) : null}
       {
         state.currentStep.index === state.steps.length - 1 ? (
-          <ButtonPrimary mutationLoading={false} float="right" onClick={() => createAccount()}>
+          <ButtonPrimary mutationLoading={runSetupLoading} float="right" onClick={() => createAccount()}>
             Create My Account
           </ButtonPrimary>) : null
       }
