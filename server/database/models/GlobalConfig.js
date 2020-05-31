@@ -6,6 +6,9 @@ const globalConfigSchema = new Schema(
   {
     businessName: String,
     fullName: String,
+    username: String,
+    email: String,
+    password: String,
   },
   { collection: 'global_config' }
 );
