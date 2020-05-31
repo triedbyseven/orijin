@@ -12,13 +12,12 @@ const Setup: React.FC = () => {
   const [runSetup, { loading: runSetupLoading }]: any = useMutation(MUTATION_SETUP, {
     onCompleted: () => {
       alert('Okay your ready to rock!');
-      router.push('/');
+      setSuccess(true);
     },
   });
-  const [success, setSuccess]: any = useState(true);
+  const [success, setSuccess]: any = useState(false);
 
   useEffect(() => {
-    console.log('Loaded');
     updateHeight(window.innerHeight);
   }, []);
 
@@ -50,7 +49,7 @@ const Setup: React.FC = () => {
         <div className="row align-items-center veritcalAlign">
           <div className="col">
             <FadeIn>
-              {success ? <SetupSuccess /> : <SetupForm />}
+              {success ? <SetupSuccess router={router} /> : <SetupForm />}
             </FadeIn>
           </div>
         </div>
