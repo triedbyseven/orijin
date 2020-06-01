@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { FormGroup, InputText } from '../Ui/Form/index';
 
 interface SetupStep2State {
@@ -14,7 +14,7 @@ interface SetupStep2Props {
   errors: any;
 }
 
-const SetupStep2: React.SFC<SetupStep2Props> = ({
+const SetupStep2: React.FC<SetupStep2Props> = ({
   companyNameRef,
   emailRef,
   usernameRef,
@@ -22,6 +22,8 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
   isCurrentStep,
   errors,
 }) => {
+  const [state, updateState] = useState<SetupStep2State>({ togglePassword: false });
+
   useEffect(() => {
     if (!isCurrentStep)
       setTimeout(() => {
@@ -66,7 +68,7 @@ const SetupStep2: React.SFC<SetupStep2Props> = ({
       </FormGroup>
       <FormGroup>
         <InputText
-          type="password"
+          type={state.togglePassword ? 'text' : 'password'}
           ref={passwordRef}
           labelTitle="Password"
           name="password"
