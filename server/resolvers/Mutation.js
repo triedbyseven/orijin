@@ -1,9 +1,12 @@
 const Config = require('../database/models/GlobalConfig');
 const Product = require('../database/models/Product');
+const { hashPassword } = require('../../utils/hashPassword');
 
-runSetup = (_parent, _args, _context) => {
+runSetup = async (_parent, _args, _context) => {
   // Creation of collection and documents
-  const { businessName, fullName, username, password } = _args;
+  const { businessName, fullName, username, password: unHashedPass } = _args;
+
+  const password = await hashPassword(unHashedPass);
 
   const newConfig = new Config({
     businessName,
