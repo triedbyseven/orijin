@@ -31,6 +31,8 @@ const SetupStep2: React.FC<SetupStep2Props> = ({
       }, 400);
   }, [isCurrentStep]);
 
+  const togglePassword = () => updateState(prevState => ({ togglePassword: !prevState.togglePassword }))
+
   return (
     <div className="form-row mb-4">
       <FormGroup>
@@ -75,6 +77,8 @@ const SetupStep2: React.FC<SetupStep2Props> = ({
           placeholderTitle=""
           disable={isCurrentStep}
           error={errors.inputErrors.password}
+          isToggable={true}
+          onToggle={togglePassword}
         />
       </FormGroup>
     </div>
