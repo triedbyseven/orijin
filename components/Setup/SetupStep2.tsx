@@ -1,7 +1,11 @@
 import { useEffect } from 'react';
 import { FormGroup, InputText } from '../Ui/Form/index';
 
-export interface SetupStep2Props {
+interface SetupStep2State {
+  togglePassword: boolean;
+}
+
+interface SetupStep2Props {
   companyNameRef: any;
   emailRef: any;
   usernameRef: any;
