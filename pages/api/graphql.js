@@ -12,6 +12,7 @@ const { query } = require('../../server/schema/query');
 import { mutation } from '../../server/schema/mutation';
 const { product } = require('../../server/schema/product');
 const { setup } = require('../../server/schema/setup');
+const { user } = require('../../server/schema/user');
 const { config: globalConfig } = require('../../server/schema/config');
 
 const resolvers = {
@@ -20,7 +21,7 @@ const resolvers = {
 };
 
 const apolloServer = new ApolloServer({
-  typeDefs: [query, mutation, globalConfig, product, setup],
+  typeDefs: [query, mutation, globalConfig, product, setup, user],
   resolvers,
   context: ({ req }) => {
     // Get the user token from the headers
