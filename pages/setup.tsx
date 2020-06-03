@@ -39,7 +39,6 @@ const Setup: React.FC = () => {
   }
 
   const startSetup = (success: boolean, businessName: any, fullName: any, username: any, email: any, password: any) => {
-    console.log(success, businessName, fullName, username, email, password);
     runSetup({ variables: { success: success, businessName: businessName, fullName: fullName, username: username, email: email, password: password } });
   };
 
