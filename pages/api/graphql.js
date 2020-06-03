@@ -1,4 +1,5 @@
 import { ApolloServer } from 'apollo-server-micro';
+import { getUser } from '../../utils/getUser';
 
 require('../../server/database/config');
 
@@ -21,6 +22,16 @@ const resolvers = {
 const apolloServer = new ApolloServer({
   typeDefs: [query, mutation, globalConfig, product, setup],
   resolvers,
+  context: ({ req }) => {
+    // Get the user token from the headers
+    const tokenWithBearer = req.headers.authorization || '';
+    const token = tokenWithBearer.split(' ')[1];
+
+    // Return user from token
+    const user = getUser(token);
+
+    return user;
+  }
 });
 
 const handler = apolloServer.createHandler({ path: '/api/graphql' });
