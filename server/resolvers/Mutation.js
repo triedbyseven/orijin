@@ -8,7 +8,6 @@ runSetup = async (_parent, _args, _context) => {
   const { businessName, fullName, username, password: unHashedPass } = _args;
 
   try {
-    // Validate values
     await fullFormSchema.validate({ businessName, fullName, username, password: unHashedPass }, { abortEarly: false });
 
     const password = await hashPassword(unHashedPass);
