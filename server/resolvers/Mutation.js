@@ -1,23 +1,32 @@
 const Config = require('../database/models/GlobalConfig');
 const Product = require('../database/models/Product');
 const { hashPassword } = require('../../utils/hashPassword');
+const { fullFormSchema } = require('../../utils/formValidation');
 
 runSetup = async (_parent, _args, _context) => {
   // Creation of collection and documents
   const { businessName, fullName, username, password: unHashedPass } = _args;
 
-  const password = await hashPassword(unHashedPass);
+  try {
+    // Validate values
+    await fullFormSchema.validate({ businessName, fullName, username, password: unHashedPass }, { abortEarly: false });
 
-  const newConfig = new Config({
-    businessName,
-    fullName,
-    username,
-    password
-  });
+    const password = await hashPassword(unHashedPass);
 
-  newConfig.save();
+    const newConfig = new Config({
+      businessName,
+      fullName,
+      username,
+      password
+    });
 
-  return { success: _args.success };
+    newConfig.save();
+
+    return { success: _args.success };
+  } catch (error) {
+    console.log(error);
+  }
+
 };
 
 addProduct = async (_parent, _args, _context) => {
