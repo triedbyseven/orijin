@@ -64,9 +64,16 @@ const SetUpform: React.FC<SetUpFormProps> = ({ startSetup, runSetupLoading }) =>
     }
   });
 
+  const capatalizeCase = (string) => {
+    return string.charAt(0).toUpperCase() + string.slice(1);
+  }
+
   const createAccount = async () => {
-    const fullName: string = `${firstNameRef.current.value} ${lastNameRef.current.value}`
-    startSetup(true, companyNameRef.current.value, fullName, usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
+    const firstName: string = capatalizeCase(firstNameRef.current.value).trim();
+    const lastName: string = capatalizeCase(lastNameRef.current.value).trim();
+    const companyName: string = capatalizeCase(companyNameRef.current.value).trim();
+    const fullName: string = `${firstName} ${lastName}`;
+    startSetup(true, companyName, fullName, usernameRef.current.value, emailRef.current.value, passwordRef.current.value);
   }
 
   return (
