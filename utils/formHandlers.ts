@@ -60,7 +60,6 @@ export const nextStep = async (state, steps, updateState, updateErrors, refs) =>
     tl.to(".step", { xPercent: '-=' + 100, ease: 'linear', duration: 0.2 });
     tl.to(".step", { opacity: 1, ease: 'linear', duration: 0.2 });
 
-    console.log(res);
   } catch (err) {
     let inputErrors: any = {};
 
