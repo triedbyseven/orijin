@@ -2,6 +2,7 @@ const Config = require('../database/models/GlobalConfig');
 const Product = require('../database/models/Product');
 const { hashPassword } = require('../../utils/hashPassword');
 const { fullFormSchema } = require('../../utils/formValidation');
+const jwt = require('jsonwebtoken');
 
 runSetup = async (_parent, _args, _context) => {
   const { businessName, fullName, username, email, password: unHashedPass } = _args;
@@ -22,10 +23,12 @@ runSetup = async (_parent, _args, _context) => {
 
     newConfig.save();
 
-    return { success: _args.success };
+    const token = await jwt.sign({ id: newConfig.id, email: newConfig.email }, '123456');
+
+    return { user: newConfig, token };
   } catch (error) {
     console.log(error);
-    throw new Error('Validation Error');
+    throw new Error('Run Setup Validation Error.');
   }
 };
 
