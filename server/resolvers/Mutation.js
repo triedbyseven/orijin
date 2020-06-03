@@ -4,17 +4,18 @@ const { hashPassword } = require('../../utils/hashPassword');
 const { fullFormSchema } = require('../../utils/formValidation');
 
 runSetup = async (_parent, _args, _context) => {
-  // Creation of collection and documents
-  const { businessName, fullName, username, password: unHashedPass } = _args;
+  const { businessName, fullName, username, email, password: unHashedPass } = _args;
 
   try {
-    await fullFormSchema.validate({ businessName, fullName, username, password: unHashedPass }, { abortEarly: false });
+
+    await fullFormSchema.validate({ companyName: businessName, fullName, email, username, password: unHashedPass }, { abortEarly: false });
 
     const password = await hashPassword(unHashedPass);
 
     const newConfig = new Config({
       businessName,
       fullName,
+      email,
       username,
       password
     });
@@ -24,8 +25,8 @@ runSetup = async (_parent, _args, _context) => {
     return { success: _args.success };
   } catch (error) {
     console.log(error);
+    throw new Error('Validation Error');
   }
-
 };
 
 addProduct = async (_parent, _args, _context) => {
